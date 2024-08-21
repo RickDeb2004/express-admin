@@ -1,83 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin UI</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+      }
 
-<h2>
-  {{string.site-admin}}
-  <a href="#" class="glyphicon glyphicon-filter" title="{{string.filter}}"></a>
-</h2>
+      h2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
 
-<form action="#" method="post" accept-charset="utf-8" class="panel panel-default x-mv x-filter x-collapsed">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{string.filter}}</h3>
-  </div>
-  <div class="panel-footer form-horizontal">
-    <div class="form-group">
-      <label class="control-label col-lg-3 col-md-3 col-sm-3">{{string.tables}}</label>
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <input type="text" name="table" class="form-control" />
+      h2 a {
+        color: #777;
+        text-decoration: none;
+      }
+
+      h2 a:hover {
+        color: #555;
+      }
+
+      .panel {
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .panel-heading {
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .panel-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .panel-footer {
+        background-color: #f7f7f7;
+        border-top: 1px solid #ddd;
+        padding: 15px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      .form-control {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      .btn {
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .x-table {
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .x-table th {
+        background-color: #428bca;
+        color: white;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .x-table td {
+        padding: 10px;
+        vertical-align: middle;
+      }
+
+      .x-table tr:hover {
+        background-color: #f0f0f0;
+      }
+
+      .x-table a {
+        text-decoration: none;
+        color: #428bca;
+      }
+
+      .x-table a:hover {
+        text-decoration: underline;
+      }
+
+      .glyphicon {
+        margin-left: 10px;
+        color: #777;
+        cursor: pointer;
+      }
+
+      .glyphicon:hover {
+        color: #333;
+      }
+
+      .x-mv.x-filter.x-collapsed {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .col-lg-3,
+        .col-md-3,
+        .col-sm-3 {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        .x-table,
+        .panel-footer {
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>
+      {{string.site-admin}}
+      <a
+        href="#"
+        class="glyphicon glyphicon-filter"
+        title="{{string.filter}}"
+      ></a>
+    </h2>
+
+    <form
+      action="#"
+      method="post"
+      accept-charset="utf-8"
+      class="panel panel-default x-mv x-filter x-collapsed"
+    >
+      <div class="panel-heading">
+        <h3 class="panel-title">{{string.filter}}</h3>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-3">
-
+      <div class="panel-footer form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-lg-3 col-md-3 col-sm-3"
+            >{{string.tables}}</label
+          >
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="table" class="form-control" />
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <button
+              type="button"
+              name="clear"
+              class="btn btn-default form-control"
+            >
+              {{string.clear}}
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <button type="button" name="clear" class="btn btn-default form-control">{{string.clear}}</button>
-      </div>
-    </div>
-  </div>
-</form>
+    </form>
 
-{{#tables}}
-<table class="table table-bordered table-striped table-hover x-table">
-  <thead>
-    <tr class="label-default">
-      <th>{{string.tables}}</th>
-    </tr>
-  </thead>
-  <tbody>
-  {{#items}}
-    <tr>
-      <td>
-        <a href="{{root}}/{{slug}}">{{name}}</a>
-        <a href="{{root}}/{{slug}}/add" class="glyphicon glyphicon-plus" title="{{string.add}} {{name}}"></a>
-      </td>
-    </tr>
-  {{/items}}
-  </tbody>
-</table>
-{{/tables}}
+    {{#tables}}
+    <table class="table table-bordered table-striped table-hover x-table">
+      <thead>
+        <tr class="label-default">
+          <th>{{string.tables}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#items}}
+        <tr>
+          <td>
+            <a href="{{root}}/{{slug}}">{{name}}</a>
+            <a
+              href="{{root}}/{{slug}}/add"
+              class="glyphicon glyphicon-plus"
+              title="{{string.add}} {{name}}"
+            ></a>
+          </td>
+        </tr>
+        {{/items}}
+      </tbody>
+    </table>
+    {{/tables}} {{#views}}
+    <table class="table table-bordered table-striped table-hover x-table">
+      <thead>
+        <tr class="label-default">
+          <th>{{string.views}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#items}}
+        <tr>
+          <td>
+            <a href="{{root}}/{{slug}}">{{name}}</a>
+          </td>
+        </tr>
+        {{/items}}
+      </tbody>
+    </table>
+    {{/views}} {{#custom}}
+    <table class="table table-bordered table-striped table-hover x-table">
+      <thead>
+        <tr class="label-default">
+          <th>{{string.others}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#items}}
+        <tr>
+          <td>
+            <a href="{{root}}/{{slug}}">{{name}}</a>
+          </td>
+        </tr>
+        {{/items}}
+      </tbody>
+    </table>
+    {{/custom}}
 
-{{#views}}
-<table class="table table-bordered table-striped table-hover x-table">
-  <thead>
-    <tr class="label-default">
-      <th>{{string.views}}</th>
-    </tr>
-  </thead>
-  <tbody>
-  {{#items}}
-    <tr>
-      <td>
-        <a href="{{root}}/{{slug}}">{{name}}</a>
-      </td>
-    </tr>
-  {{/items}}
-  </tbody>
-</table>
-{{/views}}
-
-{{#custom}}
-<table class="table table-bordered table-striped table-hover x-table">
-  <thead>
-    <tr class="label-default">
-      <th>{{string.others}}</th>
-    </tr>
-  </thead>
-  <tbody>
-  {{#items}}
-    <tr>
-      <td>
-        <a href="{{root}}/{{slug}}">{{name}}</a>
-      </td>
-    </tr>
-  {{/items}}
-  </tbody>
-</table>
-{{/custom}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>

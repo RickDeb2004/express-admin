@@ -1,48 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-{{#show.error}}
-<div class=" col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-  <div class="alert alert-danger alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>{{show.error}}</strong>
+    /* Login Container Styling */
+    .login-container {
+      background-color: #2a2a2a;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      width: 320px;
+      text-align: center;
+      color: white;
+    }
+
+    /* Form Elements Styling */
+    h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      text-align: left;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:hover,
+    input[type="password"]:hover {
+      box-shadow: 0 0 10px 2px rgba(0, 123, 255, 0.5);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+
+    /* Motion Template (can be used with Framer Motion) */
+    .group/input {
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .group-hover/input:shadow-none {
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  {{#show.error}}
+  <div class=" col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{{show.error}}</strong>
+    </div>
   </div>
-</div>
-{{/show.error}}
+  {{/show.error}}
 
-<form id="login" class="form-horizontal col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" method="post" action="{{root}}/login">
-  <fieldset>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th class="label-default">{{string.login}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            {{!username}}
-            <div class="form-group">
-              <label class="control-label col-sm-4 col-md-4 col-lg-4">{{string.username}}:</label>
-              <div class="col-sm-8 col-md-8 col-lg-8">
-                <input type="text" name="username" value="{{username}}" class="form-control" autofocus />
+  <form id="login" class="form-horizontal col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" method="post" action="{{root}}/login">
+    <fieldset>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="label-default">{{string.login}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{!username}}
+              <div class="form-group">
+                <label class="control-label col-sm-4 col-md-4 col-lg-4">{{string.username}}:</label>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                  <input type="text" name="username" value="{{username}}" class="form-control" autofocus />
+                </div>
               </div>
-            </div>
-            {{!password}}
-            <div class="form-group">
-              <label class="control-label col-sm-4 col-md-4 col-lg-4">{{string.password}}:</label>
-              <div class="col-sm-8 col-md-8 col-lg-8">
-                <input type="password" name="password" value="" class="form-control" />
+              {{!password}}
+              <div class="form-group">
+                <label class="control-label col-sm-4 col-md-4 col-lg-4">{{string.password}}:</label>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                  <input type="password" name="password" value="" class="form-control" />
+                </div>
               </div>
-            </div>
-            {{!submit}}
-            <div class="form-group">
-              <div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4 col-lg-8 col-lg-offset-4">
-                <input type="submit" value="{{string.login}}" class="btn btn-default" />
-                <input type="hidden" name="_csrf" value="{{csrf}}" />
+              {{!submit}}
+              <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4 col-lg-8 col-lg-offset-4">
+                  <input type="submit" value="{{string.login}}" class="btn btn-default" />
+                  <input type="hidden" name="_csrf" value="{{csrf}}" />
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
-</form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </form>
+</body>
+</html>
